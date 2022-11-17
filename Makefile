@@ -6,13 +6,14 @@
 #    By: agonzalv <agonzalv@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 17:41:16 by agonzalv          #+#    #+#              #
-#    Updated: 2022/11/17 12:39:25 by agonzalv         ###   ########.fr        #
+#    Updated: 2022/11/08 17:41:27 by agonzalv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME  = libft.a
+RM = rm -f
 FLAGS = -Wall -Werror -Wextra
-#Funciones obligatorias
+
 SRCS    = ft_atoi.c    \
 		  ft_bzero.c   \
 		  ft_calloc.c  \
@@ -48,21 +49,20 @@ SRCS    = ft_atoi.c    \
 		  ft_tolower.c \
 		  ft_toupper.c 
 
-BONUS_S =	ft_lstnew.c	\
-			ft_lstadd_front.c	\
-			ft_lstsize.c	\
-			ft_lstlast.c	\
-			ft_lstadd_back.c	\
-			ft_lstdelone.c	\
-			ft_lstclear.c	\
-			ft_lstiter.c	\
-			ft_lstmap.c
+OBJS	= $(SRCS:.c=.o)
+CC		= gcc
+all: $(NAME)
+$(NAME) : $(OBJS)
+	ar -rcs  $(NAME) $(OBJS)
 
-RM	=	rm -rf
-FLAGS	=	-Wall -Wextra -Werror
-#Crea y m antiene archivos de bliblioteca .o = objeto .d = dependencia
-LIB	=	ar -rcs
-OBJT	=	$(SRCS:.c=.o)
-DEPT	=	$(SRCS:.c=d)
-OBJTS	=	$(BONUS:.c=.d)
-all:	$(NAME)
+%.o : %.c
+	$(CC) $(FLAGS) -c $< -o $@
+
+.PHONY: clean fclean all re
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
