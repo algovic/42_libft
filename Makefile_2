@@ -6,7 +6,7 @@
 #    By: agonzalv <agonzalv@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 17:41:16 by agonzalv          #+#    #+#              #
-#    Updated: 2022/11/17 12:39:25 by agonzalv         ###   ########.fr        #
+#    Updated: 2022/11/17 12:22:09 by agonzalv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,11 +58,25 @@ BONUS_S =	ft_lstnew.c	\
 			ft_lstiter.c	\
 			ft_lstmap.c
 
-RM	=	rm -rf
-FLAGS	=	-Wall -Wextra -Werror
-#Crea y m antiene archivos de bliblioteca .o = objeto .d = dependencia
-LIB	=	ar -rcs
-OBJT	=	$(SRCS:.c=.o)
-DEPT	=	$(SRCS:.c=d)
-OBJTS	=	$(BONUS:.c=.d)
-all:	$(NAME)
+BONUS_O =	$(BONUS_S:.c=.o)
+
+
+OBJS	= $(SRCS:.c=.o)
+all: $(NAME)
+$(NAME) : $(OBJS)
+	ar -rcs  $(NAME) $(OBJS)
+
+%.o : %.c
+	$(CC) $(FLAGS) -c $< -o $@
+
+bonus: $(NAME) $(BONUS_O)
+		$(LIBC) $(NAME) $(BONUS_O)
+
+.PHONY: clean fclean all re
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all

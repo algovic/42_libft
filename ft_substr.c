@@ -6,7 +6,7 @@
 /*   By: agonzalv <agonzalv@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:19:36 by agonzalv          #+#    #+#             */
-/*   Updated: 2022/11/10 11:19:10 by agonzalv         ###   ########.fr       */
+/*   Updated: 2022/11/15 14:08:22 by agonzalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	s_len = ft_strlen(s);
 	i = 0;
-
-	////
 	if (len > (s_len - start))
 		len = s_len - start;
-	////
 	if (start >= s_len)
 	{
 		substr = (char *)malloc(1);
